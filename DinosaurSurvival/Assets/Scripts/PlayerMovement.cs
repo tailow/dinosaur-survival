@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     int jumpHeight = 3;
     int sensitivity = 3;
 
-    public float acceleration;
+    public float movementAcceleration;
+    public float stopAcceleration;
 
     Vector3 dir;
     Vector3 movement;
@@ -33,10 +34,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // MOVEMENT
         targetSpeed = walkSpeed;
 
-        // SPRINTING
-        if (Input.GetButton("Sprint"))
+        if (Input.GetButton("Sprint") && Input.GetAxisRaw("Vertical") > 0)
         {
             targetSpeed = sprintSpeed;
         }
@@ -46,12 +47,11 @@ public class PlayerMovement : MonoBehaviour
             targetSpeed = walkSpeed;
         }
 
-        // MOVEMENT
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             t = 0f;
 
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * acceleration);
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * movementAcceleration);
 
             if (Mathf.Abs(currentSpeed - targetSpeed) < 0.01f)
             {
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
             targetSpeed = 0f;
 
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * acceleration);
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * stopAcceleration);
 
             if (Mathf.Abs(currentSpeed - targetSpeed) < 0.01f)
             {
@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         movement = dir.normalized * currentSpeed;
 
         rigid.MovePosition(rigid.position + transform.TransformDirection(movement) * Time.deltaTime);
+
 
         // JUMPING
         if (Input.GetButtonDown("Jump") && IsGrounded())

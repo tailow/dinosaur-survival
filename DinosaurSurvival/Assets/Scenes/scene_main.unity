@@ -197,6 +197,43 @@ Prefab:
       propertyPath: acceleration
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114503288188865292, guid: 6af9cd3ebb26ad54fbabf34e1288ac90,
+        type: 2}
+      propertyPath: walkSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503288188865292, guid: 6af9cd3ebb26ad54fbabf34e1288ac90,
+        type: 2}
+      propertyPath: sprintSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035535291470402, guid: 6af9cd3ebb26ad54fbabf34e1288ac90, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035535291470402, guid: 6af9cd3ebb26ad54fbabf34e1288ac90, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20142731284635482, guid: 6af9cd3ebb26ad54fbabf34e1288ac90,
+        type: 2}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035535291470402, guid: 6af9cd3ebb26ad54fbabf34e1288ac90, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503288188865292, guid: 6af9cd3ebb26ad54fbabf34e1288ac90,
+        type: 2}
+      propertyPath: movementAcceleration
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503288188865292, guid: 6af9cd3ebb26ad54fbabf34e1288ac90,
+        type: 2}
+      propertyPath: stopAcceleration
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6af9cd3ebb26ad54fbabf34e1288ac90, type: 2}
   m_IsPrefabParent: 0
