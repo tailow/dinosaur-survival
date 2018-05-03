@@ -7,9 +7,17 @@ public class PlayerMovement : MonoBehaviour
 
     #region Variables
 
-    int movementSpeed = 10;
+    public int walkSpeed;
+    public int sprintSpeed;
+
+    float currentSpeed;
+    float targetSpeed;
+    float t;
+
     int jumpHeight = 3;
     int sensitivity = 3;
+
+    public float acceleration;
 
     Vector3 dir;
     Vector3 movement;
@@ -25,10 +33,49 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // MOVEMENT
-        dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        targetSpeed = walkSpeed;
 
-        movement = dir.normalized * movementSpeed;
+        // SPRINTING
+        if (Input.GetButton("Sprint"))
+        {
+            targetSpeed = sprintSpeed;
+        }
+
+        if (Input.GetButtonUp("Sprint"))
+        {
+            targetSpeed = walkSpeed;
+        }
+
+        // MOVEMENT
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            t = 0f;
+
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * acceleration);
+
+            if (Mathf.Abs(currentSpeed - targetSpeed) < 0.01f)
+            {
+                currentSpeed = targetSpeed;
+            }
+
+            dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        }
+
+        else
+        {
+            t = 0f;
+
+            targetSpeed = 0f;
+
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, t += Time.deltaTime * acceleration);
+
+            if (Mathf.Abs(currentSpeed - targetSpeed) < 0.01f)
+            {
+                currentSpeed = targetSpeed;
+            }
+        }
+
+        movement = dir.normalized * currentSpeed;
 
         rigid.MovePosition(rigid.position + transform.TransformDirection(movement) * Time.deltaTime);
 
