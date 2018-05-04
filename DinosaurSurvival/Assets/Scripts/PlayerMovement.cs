@@ -9,13 +9,12 @@ public class PlayerMovement : MonoBehaviour
 
     public int walkSpeed;
     public int sprintSpeed;
+    public int jumpHeight = 3;
+    public int sensitivity = 3;
 
     float currentSpeed;
     float targetSpeed;
     float t;
-
-    int jumpHeight = 3;
-    int sensitivity = 3;
 
     public float movementAcceleration;
     public float stopAcceleration;

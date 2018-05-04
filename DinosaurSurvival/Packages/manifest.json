@@ -4,6 +4,7 @@
     "com.unity.shadergraph": "1.1.4-preview",
     "com.unity.progrids": "3.0.1-preview",
     "com.unity.render-pipelines.lightweight": "1.1.5-preview",
-    "com.unity.render-pipelines.high-definition": "1.1.5-preview"
+    "com.unity.render-pipelines.high-definition": "1.1.5-preview",
+    "com.unity.textmeshpro": "1.2.2"
   }
 }

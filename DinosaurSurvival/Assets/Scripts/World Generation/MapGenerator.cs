@@ -150,7 +150,7 @@ public class MapGenerator : MonoBehaviour
                     treeSpawnY = 10f;
                 }
 
-                Vector3 treeSpawnPosition = new Vector3(treeSpawnX, treeSpawnY, treeSpawnZ);
+                Vector3 treeSpawnPosition = new Vector3(treeSpawnX, treeSpawnY - 0.5f, treeSpawnZ);
 
                 if (treeSpawnY > treeStartHeight && treeSpawnY < treeEndHeight)
                 {
