@@ -19,8 +19,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButton("Cancel"))
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Application.Quit();
         }
     }
 }

@@ -9,15 +9,21 @@ public class PlayerMovement : MonoBehaviour
 
     public int walkSpeed;
     public int sprintSpeed;
-    public int jumpHeight = 3;
-    public int sensitivity = 3;
+    public int sensitivity;
+    public int sprintFOV;
+    public int walkFOV;
 
     float currentSpeed;
     float targetSpeed;
     float t;
+    float lastJump;
 
+    int targetFOV;
+
+    public float jumpHeight;
     public float movementAcceleration;
     public float stopAcceleration;
+    public float cameraFOVAcceleration;
 
     Vector3 dir;
     Vector3 movement;
@@ -29,21 +35,46 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
+
+        Camera.main.fieldOfView = walkFOV;
     }
 
     void FixedUpdate()
     {
         // MOVEMENT
         targetSpeed = walkSpeed;
+        targetFOV = walkFOV;
 
         if (Input.GetButton("Sprint") && Input.GetAxisRaw("Vertical") > 0)
         {
             targetSpeed = sprintSpeed;
+
+            targetFOV = sprintFOV;
+
+            t = 0f;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, t += Time.deltaTime * cameraFOVAcceleration);
+
+            if (Mathf.Abs(Camera.main.fieldOfView - targetFOV) < 0.01f)
+            {
+                Camera.main.fieldOfView = targetFOV;
+            }
         }
 
-        if (Input.GetButtonUp("Sprint"))
+        else
         {
             targetSpeed = walkSpeed;
+
+            targetFOV = walkFOV;
+
+            t = 0f;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, t += Time.deltaTime * cameraFOVAcceleration);
+
+            if (Mathf.Abs(Camera.main.fieldOfView - targetFOV) < 0.01f)
+            {
+                Camera.main.fieldOfView = targetFOV;
+            }
         }
 
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
@@ -77,13 +108,6 @@ public class PlayerMovement : MonoBehaviour
         movement = dir.normalized * currentSpeed;
 
         rigid.MovePosition(rigid.position + transform.TransformDirection(movement) * Time.deltaTime);
-
-
-        // JUMPING
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            rigid.AddForce(Vector3.up * jumpHeight * 2, ForceMode.Impulse);
-        }
     }
 
     void Update()
@@ -92,11 +116,26 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0));
 
         Camera.main.transform.Rotate(new Vector3(Input.GetAxisRaw("Mouse Y") * -sensitivity, 0, 0));
+
+        // JUMPING
+        if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.02f)
+        {
+            rigid.AddForce(Vector3.up * jumpHeight * 2, ForceMode.Impulse);
+
+            lastJump = Time.time;
+        }
     }
 
     bool IsGrounded()
     {
-        if (Physics.Raycast(rigid.position, Vector3.down, transform.localScale.y + 0.2f))
+        Ray ray1 = new Ray(new Vector3(rigid.position.x - 0.5f, rigid.position.y, rigid.position.z - 0.5f), Vector3.down);
+        Ray ray2 = new Ray(new Vector3(rigid.position.x - 0.5f, rigid.position.y, rigid.position.z + 0.5f), Vector3.down);
+        Ray ray3 = new Ray(new Vector3(rigid.position.x + 0.5f, rigid.position.y, rigid.position.z - 0.5f), Vector3.down);
+        Ray ray4 = new Ray(new Vector3(rigid.position.x + 0.5f, rigid.position.y, rigid.position.z + 0.5f), Vector3.down);
+        Ray ray5 = new Ray(new Vector3(rigid.position.x, rigid.position.y, rigid.position.z), Vector3.down);
+
+        if (Physics.Raycast(ray1, transform.localScale.y) || Physics.Raycast(ray2, transform.localScale.y) || Physics.Raycast(ray3, transform.localScale.y)
+            || Physics.Raycast(ray4, transform.localScale.y) || Physics.Raycast(ray5, transform.localScale.y))
         {
             return true;
         }

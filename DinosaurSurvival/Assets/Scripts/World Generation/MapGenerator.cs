@@ -54,8 +54,15 @@ public class MapGenerator : MonoBehaviour
 
     #endregion
 
+    void Start()
+    {
+        GenerateChunks();
+    }
+
     public void GenerateChunks()
     {
+        DeleteChunks();
+
         amountOfChunksPerLine = (int)Mathf.Sqrt(amountOfChunks);
 
         mapSize = chunkSize * amountOfChunksPerLine;
@@ -84,7 +91,6 @@ public class MapGenerator : MonoBehaviour
         }
 
         DeleteTrees();
-
         GenerateTrees();
     }
 
