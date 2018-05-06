@@ -57,6 +57,8 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         GenerateChunks();
+
+        seed = Random.Range(-5000, 5000);
     }
 
     public void GenerateChunks()

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementAcceleration;
     public float stopAcceleration;
     public float cameraFOVAcceleration;
+    public float maxSpeed;
 
     Vector3 dir;
     Vector3 movement;
@@ -41,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rigid.velocity.sqrMagnitude > maxSpeed)
+        {
+            rigid.velocity *= 0.99f;
+        }
+
         // MOVEMENT
         targetSpeed = walkSpeed;
         targetFOV = walkFOV;
@@ -118,9 +124,9 @@ public class PlayerMovement : MonoBehaviour
         Camera.main.transform.Rotate(new Vector3(Input.GetAxisRaw("Mouse Y") * -sensitivity, 0, 0));
 
         // JUMPING
-        if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.02f)
+        if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.4f)
         {
-            rigid.AddForce(Vector3.up * jumpHeight * 2, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
             lastJump = Time.time;
         }
@@ -128,11 +134,11 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        Ray ray1 = new Ray(new Vector3(rigid.position.x - 0.5f, rigid.position.y, rigid.position.z - 0.5f), Vector3.down);
-        Ray ray2 = new Ray(new Vector3(rigid.position.x - 0.5f, rigid.position.y, rigid.position.z + 0.5f), Vector3.down);
-        Ray ray3 = new Ray(new Vector3(rigid.position.x + 0.5f, rigid.position.y, rigid.position.z - 0.5f), Vector3.down);
-        Ray ray4 = new Ray(new Vector3(rigid.position.x + 0.5f, rigid.position.y, rigid.position.z + 0.5f), Vector3.down);
-        Ray ray5 = new Ray(new Vector3(rigid.position.x, rigid.position.y, rigid.position.z), Vector3.down);
+        Ray ray1 = new Ray(new Vector3(rigid.position.x, rigid.position.y, rigid.position.z), Vector3.down);
+        Ray ray2 = new Ray(new Vector3(rigid.position.x - 0.2f, rigid.position.y, rigid.position.z - 0.2f), Vector3.down);
+        Ray ray3 = new Ray(new Vector3(rigid.position.x - 0.2f, rigid.position.y, rigid.position.z + 0.2f), Vector3.down);
+        Ray ray4 = new Ray(new Vector3(rigid.position.x + 0.2f, rigid.position.y, rigid.position.z - 0.2f), Vector3.down);
+        Ray ray5 = new Ray(new Vector3(rigid.position.x + 0.2f, rigid.position.y, rigid.position.z + 0.2f), Vector3.down);
 
         if (Physics.Raycast(ray1, transform.localScale.y) || Physics.Raycast(ray2, transform.localScale.y) || Physics.Raycast(ray3, transform.localScale.y)
             || Physics.Raycast(ray4, transform.localScale.y) || Physics.Raycast(ray5, transform.localScale.y))
