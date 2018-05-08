@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MapGenerator : MonoBehaviour
 {
     #region Variables
 
+    public GameManager gameManager;
+    public GameObject player;
+
     int offsetX;
     int offsetY;
     int pointX;
-    int pointY;
-    int mapSize;
+    int pointY;   
     int amountOfChunksPerLine;
     int amountOfTrees;
     int amountOfRocks;
@@ -26,10 +29,14 @@ public class MapGenerator : MonoBehaviour
     public GameObject[] rockPrefabs;
     public GameObject[] grassPrefabs;
 
+    List<Vector3> spawnPoints;
+
     public Transform chunkParent;
     public Transform treeParent;
     public Transform rockParent;
     public Transform grassParent;
+
+    public NavMeshSurface navMesh;
 
     float minPointHeight;
     float maxPointHeight;
@@ -58,6 +65,7 @@ public class MapGenerator : MonoBehaviour
     [Range(0, 1)]
     public float persistance;
 
+    public int mapSize;
     public int octaves;
     public int seed;
     public int amountOfChunks;
@@ -73,9 +81,14 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        seed = Random.Range(-5000, 5000);
+
         GenerateChunks();
 
-        seed = Random.Range(-5000, 5000);
+        navMesh.RemoveData();
+        navMesh.BuildNavMesh();
+
+        gameManager.GetComponent<AnimalSpawner>().SpawnAnimals();
     }
 
     public void GenerateChunks()
@@ -116,6 +129,8 @@ public class MapGenerator : MonoBehaviour
         GenerateTrees();
         GenerateRocks();
         GenerateGrass();
+
+        GenerateSpawnPoints();
     }
 
     public void DeleteChunks()
@@ -183,6 +198,30 @@ public class MapGenerator : MonoBehaviour
         chunk.GetComponent<MeshCollider>().sharedMesh = terrainMesh.sharedMesh;
     }
 
+    public void GenerateSpawnPoints()
+    {
+        spawnPoints = new List<Vector3>();
+
+        for (int y = 0; y > -mapSize; y--)
+        {
+            for (int x = 0; x < mapSize; x++)
+            {
+                RaycastHit hit;
+                Ray ray = new Ray(new Vector3(x, 200f, y), Vector3.down);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.tag == "Ground" && hit.point.y < 1.5f && hit.point.y > 0.1f)
+                    {
+                        spawnPoints.Add(hit.point);
+                    }
+                }
+            }
+        }
+
+        player.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)];
+    }
+
     public void GenerateTrees()
     {
         for (float y = 0; y > -mapSize; y -= (treePositionRandomness + treePositionGap))
@@ -191,19 +230,17 @@ public class MapGenerator : MonoBehaviour
             {
                 float treeSpawnX = Random.Range(x, x + treePositionRandomness);
                 float treeSpawnZ = Random.Range(y, y - treePositionRandomness);
-                float treeSpawnY;
+                float treeSpawnY = -100f;
 
                 RaycastHit hit;
                 Ray ray = new Ray(new Vector3(treeSpawnX, 200f, treeSpawnZ), Vector3.down);
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    treeSpawnY = hit.point.y;
-                }
-
-                else
-                {
-                    treeSpawnY = 10f;
+                    if (hit.collider.tag == "Ground")
+                    {
+                        treeSpawnY = hit.point.y;
+                    }
                 }
 
                 Vector3 treeSpawnPosition = new Vector3(treeSpawnX, treeSpawnY - 0.5f, treeSpawnZ);

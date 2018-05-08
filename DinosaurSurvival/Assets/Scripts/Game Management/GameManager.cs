@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour 
 {
-
     #region Variables
+
+    public GameObject player;
 
     #endregion
 
