@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     float targetSpeed;
     float t;
     float lastJump;
+    float xRot;
 
     int targetFOV;
 
@@ -119,9 +120,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // MOUSE INPUT
-        transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0));
+        transform.Rotate(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0);
 
-        Camera.main.transform.Rotate(new Vector3(Input.GetAxisRaw("Mouse Y") * -sensitivity, 0, 0));
+        xRot += Input.GetAxisRaw("Mouse Y") * sensitivity;
+        xRot = Mathf.Clamp(xRot, -90.0f, 90.0f);
+
+        Camera.main.transform.localEulerAngles = new Vector3(-xRot, Camera.main.transform.localEulerAngles.y, Camera.main.transform.localEulerAngles.z);
 
         // JUMPING
         if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.4f)
