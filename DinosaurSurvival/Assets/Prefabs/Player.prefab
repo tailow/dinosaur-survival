@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424397847346898}
   m_LocalRotation: {x: -0, y: 0.9861412, z: -0, w: 0.16590832}
-  m_LocalPosition: {x: 239.5, y: 5.31, z: -406.95016}
+  m_LocalPosition: {x: 120, y: 0.13997042, z: -166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4301197120768760}
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 4
   sprintSpeed: 7
-  sensitivity: 3
+  sensitivity: 2
   sprintFOV: 90
   walkFOV: 80
   jumpHeight: 4
