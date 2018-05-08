@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor (typeof (MapGenerator))]
+[CustomEditor(typeof(MapGenerator))]
 public class MapGeneratorEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -28,9 +28,11 @@ public class MapGeneratorEditor : Editor
             mapGen.DeleteChunks();
         }
 
-        if (GUILayout.Button("Delete all trees"))
+        if (GUILayout.Button("Delete all foliage"))
         {
             mapGen.DeleteTrees();
+            mapGen.DeleteGrass();
+            mapGen.DeleteRocks();
         }
     }
 }

@@ -455,7 +455,35 @@ Transform:
   - {fileID: 747834196}
   - {fileID: 1523823586}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1344883228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1344883229}
+  m_Layer: 0
+  m_Name: Rocks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1344883229
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1344883228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1523823586}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396041046
 GameObject:
@@ -595,17 +623,33 @@ MonoBehaviour:
   treePrefabs:
   - {fileID: 1593950697155818, guid: d2cd02263a1e8084abf81f1324b929be, type: 2}
   - {fileID: 1069289201138886, guid: 6b444276162548b4e9107350b71e775a, type: 2}
+  - {fileID: 161500, guid: ec271694f23e63e4da0cd99cfe32b104, type: 2}
+  rockPrefabs:
+  - {fileID: 188894, guid: 815e4cd23e4eb2b42a8a426a7d8c8708, type: 2}
+  grassPrefabs:
+  - {fileID: 145452, guid: 2799beb2f34432a42ab450fda2afef6a, type: 2}
+  - {fileID: 118898, guid: c7acba2f8a6f0e04a93623f01b987ae7, type: 2}
   chunkParent: {fileID: 819948231}
   treeParent: {fileID: 13047744}
+  rockParent: {fileID: 1344883229}
+  grassParent: {fileID: 1859911395}
   depth: 112.7
   scale: 70
   lacunarity: 2
   fallOffStrength: 1.1
   fallOffStart: 5
   treePositionRandomness: 4
-  treePositionGap: 1
+  treePositionGap: 2
   treeStartHeight: 5
   treeEndHeight: 9.5
+  rockPositionRandomness: 10
+  rockPositionGap: 8
+  rockStartHeight: 2
+  rockEndHeight: 10
+  grassPositionRandomness: 10
+  grassPositionGap: 6
+  grassStartHeight: 4
+  grassEndHeight: 8
   persistance: 0.4
   octaves: 6
   seed: 3057
@@ -749,6 +793,8 @@ Transform:
   - {fileID: 1396041047}
   - {fileID: 819948231}
   - {fileID: 13047744}
+  - {fileID: 1344883229}
+  - {fileID: 1859911395}
   m_Father: {fileID: 1037659630}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -789,8 +835,54 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4707990888703902, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707990888703902, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707990888703902, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54999779307814522, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54999779307814522, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fbd8fa93a42a9e4d8133057e34d0ce9, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1859911394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1859911395}
+  m_Layer: 0
+  m_Name: Grass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1859911395
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859911394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1523823586}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

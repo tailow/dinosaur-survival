@@ -13,6 +13,8 @@ public class MapGenerator : MonoBehaviour
     int mapSize;
     int amountOfChunksPerLine;
     int amountOfTrees;
+    int amountOfRocks;
+    int amountOfGrass;
 
     const int chunkSize = 96;
 
@@ -21,9 +23,13 @@ public class MapGenerator : MonoBehaviour
     public GameObject chunkPrefab;
 
     public GameObject[] treePrefabs;
+    public GameObject[] rockPrefabs;
+    public GameObject[] grassPrefabs;
 
     public Transform chunkParent;
     public Transform treeParent;
+    public Transform rockParent;
+    public Transform grassParent;
 
     float minPointHeight;
     float maxPointHeight;
@@ -33,10 +39,21 @@ public class MapGenerator : MonoBehaviour
     public float lacunarity;
     public float fallOffStrength;
     public float fallOffStart;
+
     public float treePositionRandomness;
     public float treePositionGap;
     public float treeStartHeight;
     public float treeEndHeight;
+
+    public float rockPositionRandomness;
+    public float rockPositionGap;
+    public float rockStartHeight;
+    public float rockEndHeight;
+
+    public float grassPositionRandomness;
+    public float grassPositionGap;
+    public float grassStartHeight;
+    public float grassEndHeight;
 
     [Range(0, 1)]
     public float persistance;
@@ -93,7 +110,12 @@ public class MapGenerator : MonoBehaviour
         }
 
         DeleteTrees();
+        DeleteRocks();
+        DeleteGrass();
+
         GenerateTrees();
+        GenerateRocks();
+        GenerateGrass();
     }
 
     public void DeleteChunks()
@@ -116,6 +138,32 @@ public class MapGenerator : MonoBehaviour
             for (int i = 0; i < amountOfTrees; i++)
             {
                 DestroyImmediate(treeParent.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    public void DeleteRocks()
+    {
+        amountOfRocks = rockParent.childCount;
+
+        if (rockParent.childCount > 0)
+        {
+            for (int i = 0; i < amountOfRocks; i++)
+            {
+                DestroyImmediate(rockParent.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    public void DeleteGrass()
+    {
+        amountOfGrass = grassParent.childCount;
+
+        if (grassParent.childCount > 0)
+        {
+            for (int i = 0; i < amountOfGrass; i++)
+            {
+                DestroyImmediate(grassParent.GetChild(0).gameObject);
             }
         }
     }
@@ -169,6 +217,84 @@ public class MapGenerator : MonoBehaviour
                     tree.transform.localScale *= Random.Range(0.9f, 1f);
 
                     tree.transform.parent = treeParent;
+                }
+            }
+        }
+    }
+
+    public void GenerateRocks()
+    {
+        for (float y = 0; y > -mapSize; y -= (rockPositionRandomness + rockPositionGap))
+        {
+            for (float x = 0; x < mapSize; x += (rockPositionRandomness + rockPositionGap))
+            {
+                float rockSpawnX = Random.Range(x, x + rockPositionRandomness);
+                float rockSpawnZ = Random.Range(y, y - rockPositionRandomness);
+                float rockSpawnY = -100f;
+
+                RaycastHit hit;
+                Ray ray = new Ray(new Vector3(rockSpawnX, 200f, rockSpawnZ), Vector3.down);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.tag == "Ground")
+                    {
+                        rockSpawnY = hit.point.y;
+                    }
+                }
+
+                Vector3 rockSpawnPosition = new Vector3(rockSpawnX, rockSpawnY - 1f, rockSpawnZ);
+
+                if (rockSpawnY > rockStartHeight && rockSpawnY < rockEndHeight)
+                {
+                    GameObject rockPrefab = rockPrefabs[Random.Range(0, rockPrefabs.Length)];
+
+                    GameObject rock = Instantiate(rockPrefab, rockSpawnPosition, rockPrefab.transform.rotation);
+
+                    rock.transform.localRotation = Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0));
+
+                    rock.transform.localScale *= Random.Range(0.2f, 1.5f);
+
+                    rock.transform.parent = rockParent;
+                }
+            }
+        }
+    }
+
+    public void GenerateGrass()
+    {
+        for (float y = 0; y > -mapSize; y -= (grassPositionRandomness + grassPositionGap))
+        {
+            for (float x = 0; x < mapSize; x += (grassPositionRandomness + grassPositionGap))
+            {
+                float grassSpawnX = Random.Range(x, x + grassPositionRandomness);
+                float grassSpawnZ = Random.Range(y, y - grassPositionRandomness);
+                float grassSpawnY = -100f;
+
+                RaycastHit hit;
+                Ray ray = new Ray(new Vector3(grassSpawnX, 200f, grassSpawnZ), Vector3.down);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.gameObject.tag == "Ground")
+                    {
+                        grassSpawnY = hit.point.y;
+                    }
+                }
+
+                Vector3 grassSpawnPosition = new Vector3(grassSpawnX, grassSpawnY, grassSpawnZ);
+
+                if (grassSpawnY > grassStartHeight && grassSpawnY < grassEndHeight)
+                {
+                    GameObject grassPrefab = grassPrefabs[Random.Range(0, grassPrefabs.Length)];
+
+                    GameObject grass = Instantiate(grassPrefab, grassSpawnPosition, grassPrefab.transform.rotation);
+
+                    grass.transform.localRotation = Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0));
+
+                    grass.transform.localScale *= Random.Range(0.9f, 1f);
+
+                    grass.transform.parent = grassParent;
                 }
             }
         }
