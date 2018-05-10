@@ -32,6 +32,7 @@ public class AnimalBehaviour : MonoBehaviour {
 
 	bool isFleeing = false;
 	bool isAttacking = false;
+	bool isWandering = false;
 
 	public float detectionRange;
 	public float sightRange;
@@ -46,18 +47,13 @@ public class AnimalBehaviour : MonoBehaviour {
 		navMeshAgent.speed = speed;
 		navMeshAgent.acceleration = acceleration;
 
-		if (Vector3.Distance(transform.position, player.transform.position) > sightRange && isFleeing && !isAttacking)
+		if (Vector3.Distance(transform.position, player.transform.position) > sightRange && !isWandering)
 		{
 			StopAllCoroutines();
 
 			StartCoroutine(Wander());
-		}
 
-		if (Vector3.Distance(player.transform.position, transform.position) > sightRange && !isFleeing && isAttacking)
-		{
-			StopAllCoroutines();
-
-			StartCoroutine(Wander());
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
 		}
 	}
 
@@ -79,6 +75,8 @@ public class AnimalBehaviour : MonoBehaviour {
 
 		else if (isNeutral && health > fleeHealth && !isAttacking)
 		{
+			StopAllCoroutines();
+
 			StartCoroutine(Attack());
 		}
 	}
@@ -87,6 +85,7 @@ public class AnimalBehaviour : MonoBehaviour {
 	{
 		isFleeing = false;
 		isAttacking = true;
+		isWandering = false;
 
 		targetAcceleration = sprintAcceleration;
 		targetSpeed = sprintSpeed;
@@ -108,11 +107,10 @@ public class AnimalBehaviour : MonoBehaviour {
 	{
 		isFleeing = false;
 		isAttacking = false;
+		isWandering = true;
 
 		targetSpeed = walkSpeed;
 		targetAcceleration = walkAcceleration;
-
-		gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
 		for (int i = 0; i < 10000; i++)
 		{
@@ -120,7 +118,7 @@ public class AnimalBehaviour : MonoBehaviour {
 
 			navMeshAgent.SetDestination(nextPos);
 
-			yield return new WaitForSeconds(6f);
+			yield return new WaitForSeconds(Random.Range(3, 6));
 		}
 	}
 
@@ -128,6 +126,7 @@ public class AnimalBehaviour : MonoBehaviour {
 	{
 		isFleeing = true;
 		isAttacking = false;
+		isWandering = false;
 
 		targetAcceleration = sprintAcceleration;
 		targetSpeed = sprintSpeed;
@@ -154,24 +153,12 @@ public class AnimalBehaviour : MonoBehaviour {
 
 		if (Physics.Raycast(ray, out hit, 100f))
 		{
-			Vector3 desiredPos = hit.point;
-
-			NavMeshHit closestHit;
-
-			if (NavMesh.SamplePosition(desiredPos, out closestHit, 100f, 1))
-			{
-				return closestHit.position;
-			}
-
-			else
-			{
-				return transform.position;
-			}
+			return hit.point;
 		}
 
 		else
 		{
-			return transform.position;
+			return navMeshAgent.destination;
 		}
 	}
 
