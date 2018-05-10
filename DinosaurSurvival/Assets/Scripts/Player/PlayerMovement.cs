@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     #region Variables
 
     public int walkSpeed;
-    public int sprintSpeed;
-    public int sensitivity;
+    public int sprintSpeed;  
     public int sprintFOV;
     public int walkFOV;
 
@@ -21,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     int targetFOV;
 
+    public float sensitivity;
     public float jumpHeight;
     public float movementAcceleration;
     public float stopAcceleration;
@@ -133,6 +132,24 @@ public class PlayerMovement : MonoBehaviour
             rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
             lastJump = Time.time;
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            DealDamage();
+        }
+    }
+
+    void DealDamage()
+    {
+        var hitColliders = Physics.OverlapSphere(transform.position, 5f);
+
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            if (hitColliders[i].tag == "Animal")
+            {
+                hitColliders[i].gameObject.SendMessage("TakeDamage", 1);
+            }
         }
     }
 

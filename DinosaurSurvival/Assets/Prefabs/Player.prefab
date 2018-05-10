@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 54999779307814522}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,14 +71,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424397847346898}
-  m_LocalRotation: {x: -0, y: 0.9861412, z: -0, w: 0.16590832}
-  m_LocalPosition: {x: 120, y: 0.13997042, z: -166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4301197120768760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 160.9, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20028961126034680
 Camera:
   m_ObjectHideFlags: 1
@@ -265,10 +265,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 4
   sprintSpeed: 7
-  sensitivity: 2
   sprintFOV: 90
   walkFOV: 80
-  jumpHeight: 4
+  sensitivity: 2.7
+  jumpHeight: 5
   movementAcceleration: 8
   stopAcceleration: 10
   cameraFOVAcceleration: 10
