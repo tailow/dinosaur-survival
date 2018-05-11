@@ -92,7 +92,7 @@ public class AnimalBehaviour : MonoBehaviour {
 
 		gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
 		
-		for (int i = 0; i < 10000; i++)
+		while (true)
 		{
 			Vector3 dir = player.transform.position - transform.position;
 			Vector3 nextPos = transform.position + dir.normalized;
@@ -112,7 +112,7 @@ public class AnimalBehaviour : MonoBehaviour {
 		targetSpeed = walkSpeed;
 		targetAcceleration = walkAcceleration;
 
-		for (int i = 0; i < 10000; i++)
+		while (true)
 		{
 			Vector3 nextPos = CalculatePosition(transform.position.x + Random.Range(-30f, 30f), transform.position.z + Random.Range(-30f, 30f));
 
@@ -133,7 +133,7 @@ public class AnimalBehaviour : MonoBehaviour {
 
 		gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
 		
-		for (int i = 0; i < 10000; i++)
+		while (true)
 		{
 			Vector3 dir = transform.position - player.transform.position;
 			Vector3 nextPos = transform.position + dir.normalized * 10;

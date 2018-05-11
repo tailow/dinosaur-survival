@@ -7,7 +7,9 @@ public class MapGenerator : MonoBehaviour
 {
     #region Variables
 
-    public GameManager gameManager;
+    public GameObject gameManager;
+    AnimalSpawner animalSpawner;
+
     public GameObject player;
 
     int offsetX;
@@ -58,6 +60,8 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        animalSpawner = gameManager.GetComponent<AnimalSpawner>();
+
         seed = Random.Range(-5000, 5000);
 
         GenerateChunks();
@@ -65,7 +69,7 @@ public class MapGenerator : MonoBehaviour
         navMesh.RemoveData();
         navMesh.BuildNavMesh();
 
-        gameManager.GetComponent<AnimalSpawner>().SpawnAnimals();
+        animalSpawner.SpawnAnimals();
     }
 
     public void GenerateChunks()

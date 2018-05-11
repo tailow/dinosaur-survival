@@ -6,11 +6,10 @@ OcclusionCullingSettings:
   serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: 0.25
+    smallestHole: 1.04
     backfaceThreshold: 100
-  m_SceneGUID: 640f599a90702194d8025a77d6c5359f
-  m_OcclusionCullingData: {fileID: 36300000, guid: 838d28521988966489ea22ac94ccbebf,
-    type: 2}
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1129,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200787476588f9b40ae35fe999e12d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 108714783}
+  gameManager: {fileID: 108714782}
   player: {fileID: 445901563}
   regions:
   - name: Seafloor
@@ -1632,7 +1631,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 200.01
   field of view: 80
   orthographic: 0
   orthographic size: 5
@@ -1705,14 +1704,14 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 445901563}
-  m_LocalRotation: {x: -0, y: 0.9861412, z: -0, w: 0.16590832}
-  m_LocalPosition: {x: 476, y: 0.6981444, z: -209}
+  m_LocalRotation: {x: 0, y: -0.21055703, z: 0, w: 0.9775816}
+  m_LocalPosition: {x: 165, y: 1, z: -495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1569323886}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -24.31, z: 0}
 --- !u!1 &1982264247
 GameObject:
   m_ObjectHideFlags: 0

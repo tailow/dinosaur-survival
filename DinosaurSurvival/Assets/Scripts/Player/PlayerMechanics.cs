@@ -104,20 +104,20 @@ public class PlayerMechanics : MonoBehaviour {
             new Vector3(0.3f, 0.3f, GetItem(CheckItem(currentSlot).name).range), Camera.main.transform.rotation);
 
         for (int i = 0; i < hitColliders.Length; i++)
-        {
+        {          
             if (hitColliders[i].tag == "Animal")
             {
-                hitColliders[i].gameObject.SendMessage("TakeDamage", GetItem(CheckItem(currentSlot).name).animalDamage);
+                hitColliders[i].GetComponent<AnimalBehaviour>().TakeDamage(GetItem(CheckItem(currentSlot).name).animalDamage);
             }
 
             if (hitColliders[i].tag == "Tree")
             {
-                hitColliders[i].gameObject.SendMessage("TakeDamage", GetItem(CheckItem(currentSlot).name).treeDamage);
+                hitColliders[i].GetComponent<CollectableItemBehaviour>().TakeDamage(GetItem(CheckItem(currentSlot).name).treeDamage);
             }
 
             if (hitColliders[i].tag == "Rock")
             {
-                hitColliders[i].gameObject.SendMessage("TakeDamage", GetItem(CheckItem(currentSlot).name).rockDamage);
+                hitColliders[i].GetComponent<CollectableItemBehaviour>().TakeDamage(GetItem(CheckItem(currentSlot).name).rockDamage);
             }
         }
 	}
