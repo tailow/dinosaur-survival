@@ -23,16 +23,9 @@ public class MapGeneratorEditor : Editor
             mapGen.GenerateChunks();
         }
 
-        if (GUILayout.Button("Delete all chunks"))
+        if (GUILayout.Button("Delete all objects"))
         {
-            mapGen.DeleteChunks();
-        }
-
-        if (GUILayout.Button("Delete all foliage"))
-        {
-            mapGen.DeleteTrees();
-            mapGen.DeleteGrass();
-            mapGen.DeleteRocks();
+            mapGen.DeleteObjects();
         }
     }
 }
