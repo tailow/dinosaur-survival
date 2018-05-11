@@ -61,7 +61,7 @@ public class AnimalBehaviour : MonoBehaviour {
 	{
 		health -= amountOfDamage;
 
-		if (health < 0)
+		if (health <= 0)
 		{
 			Destroy(gameObject);
 		}

@@ -133,24 +133,6 @@ public class PlayerMovement : MonoBehaviour
 
             lastJump = Time.time;
         }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            DealDamage();
-        }
-    }
-
-    void DealDamage()
-    {
-        var hitColliders = Physics.OverlapSphere(transform.position, 5f);
-
-        for (int i = 0; i < hitColliders.Length; i++)
-        {
-            if (hitColliders[i].tag == "Animal")
-            {
-                hitColliders[i].gameObject.SendMessage("TakeDamage", 1);
-            }
-        }
     }
 
     bool IsGrounded()
