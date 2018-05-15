@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     #region Variables
 
     public int walkSpeed;
-    public int sprintSpeed;  
+    public int sprintSpeed;
     public int sprintFOV;
     public int walkFOV;
 
@@ -42,14 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // MOUSE INPUT
-        transform.Rotate(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0);
-
-        xRot += Input.GetAxisRaw("Mouse Y") * sensitivity;
-        xRot = Mathf.Clamp(xRot, -90.0f, 90.0f);
-
-        Camera.main.transform.localEulerAngles = new Vector3(-xRot, Camera.main.transform.localEulerAngles.y, Camera.main.transform.localEulerAngles.z);
-
         if (rigid.velocity.sqrMagnitude > maxSpeed)
         {
             rigid.velocity *= 0.99f;
@@ -125,7 +117,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {       
+    {
+        // MOUSE INPUT
+        transform.Rotate(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0);
+
+        xRot += Input.GetAxisRaw("Mouse Y") * sensitivity;
+        xRot = Mathf.Clamp(xRot, -90.0f, 90.0f);
+
+        Camera.main.transform.localEulerAngles = new Vector3(-xRot, Camera.main.transform.localEulerAngles.y, Camera.main.transform.localEulerAngles.z);
+
         // JUMPING
         if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.4f)
         {

@@ -156,12 +156,12 @@ QualitySettings:
     shadowDistance: 75
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
-    shadowCascade4Split: {x: 0.034313172, y: 0.1203352, z: 0.2538578}
+    shadowCascade4Split: {x: 0.00799742, y: 0.09138776, z: 0.27490947}
     shadowmaskMode: 1
     blendWeights: 4
     textureQuality: 0
-    anisotropicTextures: 2
-    antiAliasing: 8
+    anisotropicTextures: 0
+    antiAliasing: 0
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
