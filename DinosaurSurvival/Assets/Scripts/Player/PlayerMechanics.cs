@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMechanics : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class PlayerMechanics : MonoBehaviour {
 	Transform hotbar;
 
 	public Items items;
+
+    public Transform hotbarSlotParent;
 
 	int currentSlot;
 	int nextSlot;
@@ -20,6 +23,18 @@ public class PlayerMechanics : MonoBehaviour {
 		hotbar = Camera.main.transform.GetChild(0);
 
 		currentSlot = 1;
+        nextSlot = 1;
+
+        SwapItem();
+
+        int index = 1;
+
+        foreach (Transform child in hotbarSlotParent)
+        {
+            child.GetChild(0).GetComponent<Image>().sprite = GetItem(CheckItem(index).name).icon;
+
+            index++;
+        }
 	}
 
 	void Update()
@@ -90,18 +105,21 @@ public class PlayerMechanics : MonoBehaviour {
         }
 		#endregion
 
-		if (Input.GetButton("Fire1") && !CheckItem(currentSlot).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Swing"))
+		if (Input.GetButton("Fire1") && CheckItem(currentSlot).GetComponent<Animator>() != null)
 		{
-            CheckItem(currentSlot).GetComponent<Animator>().Play("Swing");
+            if (!CheckItem(currentSlot).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Swing"))
+            {
+                CheckItem(currentSlot).GetComponent<Animator>().Play("Swing");
 
-			Invoke("Swing", GetItem(CheckItem(currentSlot).name).hitDelay);
+                Invoke("Swing", GetItem(CheckItem(currentSlot).name).hitDelay);
+            }
 		}
 	}
 
 	void Swing()
 	{
         Collider[] hitColliders = Physics.OverlapBox(transform.position,
-            new Vector3(0.3f, 0.3f, GetItem(CheckItem(currentSlot).name).range), Camera.main.transform.rotation);
+        new Vector3(0.3f, 0.3f, GetItem(CheckItem(currentSlot).name).range), Camera.main.transform.rotation);
 
         for (int i = 0; i < hitColliders.Length; i++)
         {          
@@ -124,11 +142,10 @@ public class PlayerMechanics : MonoBehaviour {
 
 	void SwapItem()
 	{
-		// Swap animation
-
 		CheckItem(currentSlot).SetActive(false);
 
-		// Swap animation
+        hotbarSlotParent.GetChild(currentSlot - 1).GetComponent<Image>().color = new Color(1, 1, 1, 0.2f);
+        hotbarSlotParent.GetChild(nextSlot - 1).GetComponent<Image>().color = new Color(1, 1, 1, 1f);
 
         CheckItem(nextSlot).SetActive(true);
 
