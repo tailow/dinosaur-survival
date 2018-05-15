@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 33011167147379936}
   - component: {fileID: 23672150638133640}
   - component: {fileID: 135800747301942292}
+  - component: {fileID: 205237902108654784}
   m_Layer: 0
   m_Name: TestAnimal
   m_TagString: Animal
@@ -125,3 +126,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!205 &205237902108654784
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700854881593694}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.07441143
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23109063448187470}
   - component: {fileID: 64525856626056214}
   - component: {fileID: 114705088971171440}
+  - component: {fileID: 205949459067370168}
   m_Layer: 9
   m_Name: Tree2
   m_TagString: Tree
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593950697155818}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 640.4091, y: 148.48367, z: 147.56583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -112,3 +113,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 8
+--- !u!205 &205949459067370168
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1593950697155818}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.004739642, y: 0, z: 3.2577364}
+  m_Size: 6.791967
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 23109063448187470}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 23109063448187470}
+  - screenRelativeHeight: 0.05704854
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 23109063448187470}
+  m_Enabled: 1

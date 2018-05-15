@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2385856}
   - component: {fileID: 6404096}
   - component: {fileID: 114307844631030780}
+  - component: {fileID: 205431248610346936}
   m_Layer: 9
   m_Name: Tree3
   m_TagString: Tree
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 113.29766, y: 30.812273, z: -54.54975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,7 +49,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 342c475ac06179249a7cb8facac92609, type: 2}
-  - {fileID: 2100000, guid: 545d84d0366f1f947a08ba23cfe28d81, type: 2}
+  - {fileID: 2100000, guid: 9dc0baa1fa946fe4f86ffb96765d53e8, type: 2}
   - {fileID: 2100000, guid: e6f661b9d21d2844481da7d6f63a6834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -113,3 +114,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
+--- !u!205 &205431248610346936
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161500}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.029795408, y: 3.4751923, z: -0.04985881}
+  m_Size: 7.0604844
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0.53
+    renderers:
+    - renderer: {fileID: 2385856}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2385856}
+  - screenRelativeHeight: 0.05704854
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2385856}
+  m_Enabled: 1
