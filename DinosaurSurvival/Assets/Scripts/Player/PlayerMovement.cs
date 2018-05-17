@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rigid;
 
+    public GameObject inventory;
+
     #endregion
 
     void Start()
@@ -119,19 +121,22 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // MOUSE INPUT
-        transform.Rotate(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0);
-
-        xRot += Input.GetAxisRaw("Mouse Y") * sensitivity;
-        xRot = Mathf.Clamp(xRot, -90.0f, 90.0f);
-
-        Camera.main.transform.localEulerAngles = new Vector3(-xRot, Camera.main.transform.localEulerAngles.y, Camera.main.transform.localEulerAngles.z);
-
-        // JUMPING
-        if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.4f)
+        if (!inventory.activeInHierarchy)
         {
-            rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            transform.Rotate(0, Input.GetAxisRaw("Mouse X") * sensitivity, 0);
 
-            lastJump = Time.time;
+            xRot += Input.GetAxisRaw("Mouse Y") * sensitivity;
+            xRot = Mathf.Clamp(xRot, -90.0f, 90.0f);
+
+            Camera.main.transform.localEulerAngles = new Vector3(-xRot, Camera.main.transform.localEulerAngles.y, Camera.main.transform.localEulerAngles.z);
+
+            // JUMPING
+            if (Input.GetButtonDown("Jump") && IsGrounded() && (Time.time - lastJump) > 0.4f)
+            {
+                rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+
+                lastJump = Time.time;
+            }
         }
     }
 

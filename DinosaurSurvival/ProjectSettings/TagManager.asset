@@ -8,6 +8,7 @@ TagManager:
   - Animal
   - Tree
   - Rock
+  - Inventory
   layers:
   - Default
   - TransparentFX

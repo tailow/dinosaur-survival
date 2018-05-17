@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     #region Variables
 
     public GameObject player;
+    public GameObject inventory;
 
     #endregion
 
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        inventory.SetActive(false);
     }
 
     void Update()
